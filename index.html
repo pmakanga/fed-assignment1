@@ -1,0 +1,129 @@
+<html>
+  <head>
+    <script type="text/javascript" src="fabric.min.js"></script>
+    <script type="text/javascript" src="initializeObjects.js"></script>
+    <script type="text/javascript" src="index.js"></script>
+    <script type="module">
+      // Add import(s) for your module(s) to here and modify event listeners
+      import * as InitializeObjects from './initializeObjects.js'
+
+      document.querySelector('#spaceHorizontally').addEventListener('click',
+        () => {
+          alert("EDIT ME")
+        }
+      )
+
+      document.querySelector('#spaceVertically').addEventListener('click',
+        () => {
+          alert("EDIT ME")
+        }
+      )
+
+      document.querySelector('#alignLeft').addEventListener('click',
+        () => {
+          // Align left
+            let activeObj = canvas.getActiveObject()
+
+            if(activeObj != undefined) {
+              const bound = activeObj.getBoundingRect()
+              activeObj.set('left', (activeObj.left - bound.left));
+              canvas.getActiveObject().setCoords();
+              canvas.renderAll();
+            } else {
+              alert('Nothing selected to align!');
+            }
+        }
+      )
+
+
+      document.querySelector('#alignRight').addEventListener('click',
+        () => {
+          // Align right
+            let activeObj = canvas.getActiveObject()
+            
+            if(activeObj != undefined) {
+              const bound = activeObj.getBoundingRect()
+              activeObj.set('left', (activeObj.width - bound.width/2));
+              canvas.getActiveObject().setCoords();
+              canvas.renderAll();
+            }else {
+              alert('Nothing selected to align!');
+            }
+
+            
+   
+        }
+      )
+
+      document.querySelector('#alignTop').addEventListener('click',
+        () => {
+          // Align top
+            let activeObj = canvas.getActiveObject();
+            
+            if(activeObj != undefined) {
+              const bound = activeObj.getBoundingRect()
+              activeObj.set('top', (activeObj.top - bound.top));
+              canvas.getActiveObject().setCoords();
+              canvas.renderAll();
+            } else {
+              alert('Nothing selected to align!');
+            }
+
+
+        }
+      )
+
+      document.querySelector('#alignMiddle').addEventListener('click',
+        () => {
+          let activeObj = canvas.getActiveObject();
+
+          if(activeObj != undefined) {
+            const bound = activeObj.getBoundingRect();
+            activeObj.set('top', (activeObj.height/2));
+            canvas.getActiveObject().setCoords();
+            canvas.renderAll();
+          } else {
+            alert('Nothing selected to align!');
+          }
+        }
+      )
+
+      document.querySelector('#alignBottom').addEventListener('click',
+        () => {
+          var activeObj = canvas.getActiveObject();
+
+          if(activeObj != undefined) {
+            const bound = activeObj.getBoundingRect();
+            activeObj.set('top', (canvas.height - bound.height/2));
+            canvas.getActiveObject().setCoords();
+            canvas.renderAll();
+          }else{
+            alert('Nothing selected to align!');
+          }
+        }
+      )
+    
+    </script>
+  </head>
+  <body onload="createCanvas()">
+    <div>
+      <select name="objects" onchange="if (this.selectedIndex) clearCanvas(this.value)">
+          <option value="-1" selected="selected">Please select object set to play with!</option>
+          <option value="objects_1">Objects #1</option>
+          <option value="objects_2">Objects #2</option>
+          <option value="objects_3">Objects #3</option>
+        </select>
+      <label>spacing</label><input id="spacing" value="10" type="number" style="margin-bottom: 20px;">
+    </div>
+    <button id="spaceHorizontally">Space horizontally</button>
+    <button id="spaceVertically">Space vertically</button>
+
+    <button id="alignLeft">Align left</button>
+    <button id="alignRight">Align right</button>
+
+    <button id="alignTop">Align top</button>
+    <button id="alignMiddle">Align middle</button>
+    <button id="alignBottom">Align bottom</button>
+    <canvas id="c" width="960" height="800"></canvas>
+  <body>
+</html>
