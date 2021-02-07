@@ -5,11 +5,31 @@
     <script type="text/javascript" src="index.js"></script>
     <script type="module">
       // Add import(s) for your module(s) to here and modify event listeners
-      import * as InitializeObjects from './initializeObjects.js'
-
+      
       document.querySelector('#spaceHorizontally').addEventListener('click',
         () => {
+          
+          let group = canvas.getActiveObject();
+          let items = canvas.getActiveObject()._objects
+          
+          let inputValue = parseInt(document.getElementById('spacing').value);
+         
+          for (let i = 0; i < items.length; i++) {
+            console.log(i);
+            if (i == 0) {
+              items[i].set({
+                left: group.width / 2,
+                top: group.height / 2
+              });
+            } else {
+              items[i].set({
+                left: items[i -1].left,
+                width: items[i - 1].width + items[i - 1].height + inputValue
+              });
+            }
+          }
 
+          canvas.renderAll();
         }
       )
 
@@ -17,11 +37,12 @@
         () => {
  
           let group = canvas.getActiveObject();
-          let items = canvas.getActiveObject()._objects
+          let items = canvas.getActiveObject()._objects;
           
-          let inputValue = document.getElementById('spacing').value;
-          
+          let inputValue = parseInt(document.getElementById('spacing').value);
+         
           for (let i = 0; i < items.length; i++) {
+            console.log(i);
             if (i == 0) {
               items[i].set({
                 left: group.width / 2,
@@ -50,7 +71,7 @@
               canvas.getActiveObject().setCoords();
               canvas.renderAll();
             } else {
-              alert('Nothing selected to align!');
+              alert('Select one or more items to align!');
             }
         }
       )
@@ -67,7 +88,7 @@
               canvas.getActiveObject().setCoords();
               canvas.renderAll();
             }else {
-              alert('Nothing selected to align!');
+              alert('Select one or more items to align!');
             }
 
             
@@ -86,7 +107,7 @@
               canvas.getActiveObject().setCoords();
               canvas.renderAll();
             } else {
-              alert('Nothing selected to align!');
+              alert('Select one or more items to align!');;
             }
 
 
@@ -103,7 +124,7 @@
             canvas.getActiveObject().setCoords();
             canvas.renderAll();
           } else {
-            alert('Nothing selected to align!');
+            alert('Select one or more items to align!');
           }
         }
       )
@@ -118,7 +139,7 @@
             canvas.getActiveObject().setCoords();
             canvas.renderAll();
           }else{
-            alert('Nothing selected to align!');
+            alert('Select one or more items to align!');
           }
         }
       )
